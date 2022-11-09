@@ -76,11 +76,11 @@ async function run() {
             res.send(review);
         });
 
-        // app.post('/reviews', verifyJWT, async (req, res) => {
-        //     const review = req.body;
-        //     const result = await reviewCollection.insertOne(review);
-        //     res.send(result);
-        // });
+        app.post('/reviews', verifyJWT, async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        });
 
         app.patch('/reviews/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
