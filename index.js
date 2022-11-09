@@ -76,24 +76,24 @@ async function run() {
             res.send(review);
         });
 
-        app.post('/reviews', verifyJWT, async (req, res) => {
-            const review = req.body;
-            const result = await reviewCollection.insertOne(review);
-            res.send(result);
-        });
-
-        // app.patch('/reviews/:id', verifyJWT, async (req, res) => {
-        //     const id = req.params.id;
-        //     const status = req.body.status
-        //     const query = { _id: ObjectId(id) }
-        //     const updatedDoc = {
-        //         $set: {
-        //             status: status
-        //         }
-        //     }
-        //     const result = await reviewCollection.updateOne(query, updatedDoc);
+        // app.post('/reviews', verifyJWT, async (req, res) => {
+        //     const review = req.body;
+        //     const result = await reviewCollection.insertOne(review);
         //     res.send(result);
-        // })
+        // });
+
+        app.patch('/reviews/:id', verifyJWT, async (req, res) => {
+            const id = req.params.id;
+            const status = req.body.status
+            const query = { _id: ObjectId(id) }
+            const updatedDoc = {
+                $set: {
+                    status: status
+                }
+            }
+            const result = await reviewCollection.updateOne(query, updatedDoc);
+            res.send(result);
+        })
 
         app.delete('/reviews/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
