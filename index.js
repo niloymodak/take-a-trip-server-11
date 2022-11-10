@@ -105,11 +105,11 @@ async function run() {
         });
 
         //addService api
-        app.post('/newservice', verifyJWT, async (req, res) => {
-            const service = req.body;
-            const result = await addServiceCollection.insertOne(service);
-            res.send(result);
-        })
+        // app.post('/newservice', verifyJWT, async (req, res) => {
+        //     const service = req.body;
+        //     const result = await addServiceCollection.insertOne(service);
+        //     res.send(result);
+        // })
 
     }
     finally {
