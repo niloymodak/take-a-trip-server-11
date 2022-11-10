@@ -36,6 +36,7 @@ async function run() {
     try {
         const serviceCollection = client.db('onlineService').collection('services');
         const reviewCollection = client.db('onlineService').collection('reviews');
+        const addServiceCollection = client.db('onlineService').collection('addService');
 
         app.post('/jwt', (req, res) => {
             const user = req.body;
@@ -57,6 +58,7 @@ async function run() {
             res.send(service);
         });
 
+        ///review api
         app.get('/reviews', verifyJWT, async (req, res) => {
             const decoded = req.decoded;
             if (decoded.email !== req.query.email) {
@@ -99,6 +101,13 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await reviewCollection.deleteOne(query);
+            res.send(result);
+        });
+
+        //addService api
+        app.post('/newservice', verifyJWT, async (req, res) => {
+            const service = req.body;
+            const result = await addServiceCollection.insertOne(service);
             res.send(result);
         })
 
